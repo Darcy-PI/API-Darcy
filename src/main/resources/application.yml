@@ -1,0 +1,17 @@
+spring:
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:default}
+  application:
+    name: Darcy-API
+  datasource:
+    url: jdbc:postgresql://${PG_HOST}:${PG_PORT}/${PG_DATABASE}
+    username: ${PG_USER}
+    password: ${PG_PASSWORD}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+server:
+  port: 8080
