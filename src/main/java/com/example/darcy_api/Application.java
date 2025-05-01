@@ -1,5 +1,6 @@
 package com.example.darcy_api;
 
+import com.example.darcy_api.enums.TopicoDificuldade;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.servers.Server;
 
