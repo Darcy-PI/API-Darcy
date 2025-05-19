@@ -1,13 +1,12 @@
 package com.example.darcy_api.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+
 import lombok.Getter;
 import lombok.Setter;
+
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -17,24 +16,29 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity(name = "tb_professor")
-public class ProfessorModel {
+public class Professor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @NotNull
+    @Column(length = 15)
     private String usuario;
 
     @NotNull
+    @Column(length = 30)
     private String senha;
 
     @NotNull
-    private String nome_completo;
+    @Column(name = "nome_completo", length = 80)
+    private String nomeCompleto;
 
     @CreationTimestamp
-    private Timestamp data_criarcao;
+    @Column(name = "data_criacao")
+    private Timestamp dataCriacao;
 
     @UpdateTimestamp
-    private Timestamp data_modificacao;
+    @Column(name = "data_modificacao")
+    private Timestamp dataModificacao;
 }

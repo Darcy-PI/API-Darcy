@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigInteger;
@@ -16,8 +17,6 @@ import java.util.UUID;
 @Setter
 @Entity(name = "tb_estudante_data")
 public class StudentData {
-
-    // Colunas que representem INT variam de i a 5
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -63,8 +62,12 @@ public class StudentData {
     @Column(name = "tempo_dedicado_estudo")
     private BigInteger tempoDedicadoEstudo;
 
+    @CreationTimestamp
+    @Column(name = "data_criacao")
+    private Timestamp dataCriacao;
+
     @UpdateTimestamp
-    @Column(name = "data_ultima_modificacao")
-    private Timestamp dataUltimoMapeamento;
+    @Column(name = "data_modificacao")
+    private Timestamp dataModificacao;
 
 }
