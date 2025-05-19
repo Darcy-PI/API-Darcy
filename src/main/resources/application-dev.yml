@@ -2,12 +2,14 @@ spring:
   application:
     name: Darcy-API-dev
   datasource:
-    url: jdbc:h2:mem:testdb # or jdbc:h2:file:/~h2db to persist data
+    url: jdbc:h2:mem:h2db # or jdbc:h2:file:/~h2db to persist data
     username: ${DB_USER:root}
     password: ${DB_PASSWORD:root}
     driverClassName: org.h2.Driver
   jpa:
     show-sql: true
+    hibernate:
+      ddl-auto: create
     properties:
       hibernate:
         format_sql: true
