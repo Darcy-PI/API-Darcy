@@ -1,6 +1,6 @@
-package com.example.darcy_api.service;
+package com.example.darcy_api.service.impi;
 
-import com.example.darcy_api.model.ProfessorModel;
+import com.example.darcy_api.model.Professor;
 import com.example.darcy_api.repository.ProfessorRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,19 +16,19 @@ public class ProfessorService {
         this.professorRepository = professorRepository;
     }
 
-    public List<ProfessorModel> findAllProfessor() {
+    public List<Professor> findAllProfessor() {
         return professorRepository.findAll();
     }
 
-    public ProfessorModel findProfessorById(UUID id) {
+    public Professor findProfessorById(UUID id) {
         return professorRepository.findById(id).orElse(null);
     }
 
-    public ProfessorModel createProfessor(ProfessorModel professor) {
+    public Professor createProfessor(Professor professor) {
         return professorRepository.save(professor);
     }
 
-    public ProfessorModel updateProfessor(UUID id, ProfessorModel professor) {
+    public Professor updateProfessor(UUID id, Professor professor) {
         return professorRepository.findById(id).orElse(professor);
     }
 

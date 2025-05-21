@@ -18,7 +18,7 @@ public class StudentDataServiceImpi implements StudentDataService {
     }
 
     @Override
-    public List<StudentData> findAllStudentData(){
+    public List<StudentData> getAllStudents(){
         List<StudentData> studentDataList = studentDataRepository.findAll();
         return studentDataList;
     }
@@ -31,13 +31,6 @@ public class StudentDataServiceImpi implements StudentDataService {
     }
 
     @Override
-    public List<StudentData> findAllStudentDataByVirtualClassroomId(UUID virtualClassroomId){
-        List<StudentData> studentDataList = studentDataRepository.findAllByVirtualClassroomId(virtualClassroomId);
-
-        return studentDataList;
-    }
-
-    @Override
     public StudentData createStudentData(StudentData newStudentData){
         if (studentDataRepository.existsById(newStudentData.getId())) throw new IllegalArgumentException("Esse StudentData já existe");
         studentDataRepository.save(newStudentData);
@@ -46,7 +39,7 @@ public class StudentDataServiceImpi implements StudentDataService {
     }
 
     @Override
-    public StudentData updateStudentData(UUID studentId ,StudentData updateStudentData){
+    public StudentData updateStudentDataById(UUID studentId ,StudentData updateStudentData){
         if (studentDataRepository.existsById(studentId)) throw new IllegalArgumentException("O StudentData buscado não existe");
         studentDataRepository.findByStudentId(studentId);
 

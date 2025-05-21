@@ -1,11 +1,9 @@
 package com.example.darcy_api.controller;
 
-import com.example.darcy_api.model.ProfessorModel;
-import com.example.darcy_api.repository.ProfessorRepository;
-import com.example.darcy_api.service.ProfessorService;
+import com.example.darcy_api.model.Professor;
+import com.example.darcy_api.service.impi.ProfessorService;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,26 +21,26 @@ public class ProfessorController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ProfessorModel>> findAllProfessor() {
-        List<ProfessorModel> professoresList = professorService.findAllProfessor();
+    public ResponseEntity<List<Professor>> findAllProfessor() {
+        List<Professor> professoresList = professorService.findAllProfessor();
         return ResponseEntity.ok(professoresList);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProfessorModel> findProfessorById(@PathVariable UUID id) {
-        ProfessorModel professor = professorService.findProfessorById(id);
+    public ResponseEntity<Professor> findProfessorById(@PathVariable UUID id) {
+        Professor professor = professorService.findProfessorById(id);
         return ResponseEntity.ok(professor);
     }
 
     @PostMapping
-    public ResponseEntity<ProfessorModel> createProfessor(@RequestBody ProfessorModel professor) {
-        ProfessorModel newProfessor = professorService.createProfessor(professor);
+    public ResponseEntity<Professor> createProfessor(@RequestBody Professor professor) {
+        Professor newProfessor = professorService.createProfessor(professor);
         return ResponseEntity.ok(newProfessor);
     }
 
     @PutMapping("{/id}")
-    public ResponseEntity<ProfessorModel> updateProfessor(@PathVariable UUID id , @RequestBody ProfessorModel professor) {
-        ProfessorModel updateProfessor = professorService.updateProfessor(id, professor);
+    public ResponseEntity<Professor> updateProfessor(@PathVariable UUID id , @RequestBody Professor professor) {
+        Professor updateProfessor = professorService.updateProfessor(id, professor);
         return ResponseEntity.ok(updateProfessor);
     }
 

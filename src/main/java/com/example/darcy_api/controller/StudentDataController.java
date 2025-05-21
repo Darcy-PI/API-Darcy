@@ -23,13 +23,7 @@ public class StudentDataController {
 
     @GetMapping
     public ResponseEntity<List<StudentData>> findAllStudentData(){
-        List<StudentData> studentDataList = studentDataService.findAllStudentData();
-        return ResponseEntity.ok(studentDataList);
-    }
-
-    @GetMapping("/{virtualClassroomId}")
-    public ResponseEntity<List<StudentData>> findStudentDataByVirtualClassroomId(@PathVariable UUID virtualClassroomIdId){
-        List<StudentData> studentDataList = studentDataService.findAllStudentDataByVirtualClassroomId(virtualClassroomIdId);
+        List<StudentData> studentDataList = studentDataService.getAllStudents();
         return ResponseEntity.ok(studentDataList);
     }
 
