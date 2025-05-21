@@ -10,6 +10,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -21,9 +22,10 @@ public class VirtualClassroom {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "id_professor")
-    private Professor professor;
+    private Professor professorOwner;
 
     @Column(name = "access_key", unique = true, length = 8)
     private String accessKey;
@@ -37,6 +39,10 @@ public class VirtualClassroom {
     @NotNull
     @Column(name = "nome_ambiente", length = 40)
     private String nomeAmbiente;
+
+    // Mapeamento de relação
+    @ManyToMany(mappedBy = "ambientes")
+    private List<Student> alunos;
 
     @CreationTimestamp
     @Column(name = "data_criacao")

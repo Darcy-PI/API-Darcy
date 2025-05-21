@@ -2,10 +2,13 @@ package com.example.darcy_api.model;
 
 import com.example.darcy_api.enums.NecessidadeReforco;
 import com.example.darcy_api.enums.TopicoDificuldade;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+
 import lombok.Getter;
 import lombok.Setter;
+
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -22,13 +25,13 @@ public class StudentData {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-//    @OneToOne
-//    @JoinColumn(name = "id_estudante")
-//    private Student student;
+    @OneToOne
+    @JoinColumn(name = "id_estudante")
+    private Student student;
 
-//    @OneToOne
-//    @JoinColumn(name = "id_ambiente_virtual")
-//    private VirtualClassroom virtualClassroom;
+    @OneToOne
+    @JoinColumn(name = "id_ambiente_virtual")
+    private VirtualClassroom virtualClassroom;
 
     @NotNull
     @Column(name = "grau_compreenssao")

@@ -11,7 +11,7 @@ import com.example.darcy_api.repository.AlunoRepository;
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
-import com.example.darcy_api.model.AlunoModel;
+import com.example.darcy_api.model.Aluno;
 import java.util.UUID;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,8 +32,8 @@ public class AlunoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<AlunoModel>> getAllAlunos(){
-        List<AlunoModel> alunos = alunoRepository.findAll();
+    public ResponseEntity<List<Aluno>> getAllAlunos(){
+        List<Aluno> alunos = alunoRepository.findAll();
         if(alunos.isEmpty()){
             return ResponseEntity.noContent().build();
         } 
@@ -41,8 +41,8 @@ public class AlunoController {
     }
 
     @GetMapping
-    public ResponseEntity<AlunoModel> getAlunoById(UUID id){
-        AlunoModel aluno = alunoRepository.findById(id).orElse(null);
+    public ResponseEntity<Aluno> getAlunoById(UUID id){
+        Aluno aluno = alunoRepository.findById(id).orElse(null);
         if(aluno == null){
             return ResponseEntity.notFound().build();
         }
@@ -50,26 +50,26 @@ public class AlunoController {
     }
 
     @PostMapping
-    public ResponseEntity<AlunoModel> createAluno(AlunoModel aluno){
-        AlunoModel savedAluno = alunoRepository.save(aluno);
+    public ResponseEntity<Aluno> createAluno(Aluno aluno){
+        Aluno savedAluno = alunoRepository.save(aluno);
         return ResponseEntity.status(201).body(savedAluno);
     }
 
 
     @PutMapping
-    public ResponseEntity<AlunoModel> updateAluno(@PathVariable UUID id, @RequestBody AlunoModel Newaluno){
-        AlunoModel aluno = alunoRepository.findById(id).orElse(null);
+    public ResponseEntity<Aluno> updateAluno(@PathVariable UUID id, @RequestBody Aluno Newaluno){
+        Aluno aluno = alunoRepository.findById(id).orElse(null);
         if(aluno == null){
             return ResponseEntity.notFound().build();
         }
-        AlunoModel updatedAluno = alunoRepository.save(Newaluno);
+        Aluno updatedAluno = alunoRepository.save(Newaluno);
         return ResponseEntity.ok(updatedAluno);
     }
 
 
     @DeleteMapping
     public ResponseEntity<Void> deleteAluno(@PathVariable UUID id){
-        AlunoModel aluno = alunoRepository.findById(id).orElse(null);
+        Aluno aluno = alunoRepository.findById(id).orElse(null);
         if(aluno == null){
             return ResponseEntity.notFound().build();
         }

@@ -1,35 +1,45 @@
 package com.example.darcy_api.model;
 
 import java.security.Timestamp;
+import java.util.List;
 import java.util.UUID;
 
+import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotNull;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
-
 @Entity (name = "TB_Student")
-public class AlunoModel{
+public class Student {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    // @OneToMany 
-    // private UUID id_ambiente;
-
     @NotNull
+    @Column (length = 15)
     private String usuario;
 
     @NotNull
+    @Column(length = 30)
     private String senha;
 
     @NotNull
-    private String nome_completo;
+    @Column(name = "nome_completo", length = 80)
+    private String nomeCompleto;
+
+    // Criando tabela intermediária para relação N:N
+    @ManyToMany
+    @JoinTable(name = "aluno_ambiente",
+            joinColumns = @JoinColumn(name = "id_aluno"),
+            inverseJoinColumns = @JoinColumn(name = "id_ambiente_virtual"))
+    private List<VirtualClassroom> ambientes;
 
     @CreationTimestamp
     @Column(name = "data_criacao")

@@ -11,6 +11,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.security.Timestamp;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -33,6 +34,9 @@ public class Professor {
     @NotNull
     @Column(name = "nome_completo", length = 80)
     private String nomeCompleto;
+
+    @OneToMany(mappedBy = "professorOwner")
+    private List<VirtualClassroom> ambientes;
 
     @CreationTimestamp
     @Column(name = "data_criacao")
