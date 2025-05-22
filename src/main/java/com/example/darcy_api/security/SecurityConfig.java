@@ -19,7 +19,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         authorizeConfig -> {
                             authorizeConfig.requestMatchers("/h2-console/**").permitAll();
-                            authorizeConfig.requestMatchers("/").permitAll();
+                            authorizeConfig.requestMatchers("/", "/api/v1/**").permitAll();
+                            authorizeConfig.requestMatchers(
+                                    "/v3/api-docs/**",
+                                    "/swagger-ui/**",
+                                    "/swagger-ui.html").permitAll();
                             authorizeConfig.anyRequest().authenticated();
                         }
                 )
