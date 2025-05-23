@@ -2,6 +2,7 @@ package com.example.darcy_api.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -18,16 +19,20 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(
                         authorizeConfig -> {
-                            authorizeConfig.requestMatchers("/h2-console/**").permitAll();
-                            authorizeConfig.requestMatchers("/", "/api/v1/**").permitAll();
                             authorizeConfig.requestMatchers(
+                                    "/",
+                                    "/api/v1/**"
+                            ).permitAll();
+                            authorizeConfig.requestMatchers(
+                                    "/h2,console/**",
                                     "/v3/api-docs/**",
                                     "/swagger-ui/**",
-                                    "/swagger-ui.html").permitAll();
+                                    "/swagger-ui.html"
+                            ).permitAll();
                             authorizeConfig.anyRequest().authenticated();
                         }
                 )
-                .csrf(AbstractHttpConfigurer::disable)
+                .csrf(customizer -> customizer.disable())
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .formLogin(Customizer.withDefaults())
                 .build();
