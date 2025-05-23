@@ -7,13 +7,15 @@ import java.util.UUID;
 
 public interface StudentDataService {
 
-    List<StudentData> getAllStudents();
+    List<StudentData> getAllStudentDatas();
 
-    StudentData findStudentDataByStudentId(UUID studentId);
+    List<StudentData> getStudentDataByVirtualClassroomId(UUID virtualClassroomId);
+
+    StudentData getStudentDataByStudentId(UUID studentId);
 
     StudentData createStudentData(StudentData studentData);
 
-    StudentData updateStudentDataById(UUID studentId ,StudentData newStudentData);
+    StudentData updateStudentDataByStudentId(UUID studentId, StudentData newStudentData);
 
     void deleteStudentDataByStudentId(UUID studentId);
 }

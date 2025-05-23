@@ -1,10 +1,12 @@
 package com.example.darcy_api.model;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -15,6 +17,8 @@ import lombok.Setter;
 
 @Setter
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity (name = "TB_Student")
 public class Student {
 
@@ -36,7 +40,8 @@ public class Student {
 
     // Criando tabela intermediária para relação N:N
     @ManyToMany
-    @JoinTable(name = "aluno_ambiente",
+    @JoinTable(
+            name = "aluno_ambiente",
             joinColumns = @JoinColumn(name = "id_aluno"),
             inverseJoinColumns = @JoinColumn(name = "id_ambiente_virtual"))
     private List<VirtualClassroom> ambientes;

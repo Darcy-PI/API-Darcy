@@ -1,9 +1,12 @@
 package com.example.darcy_api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -15,6 +18,8 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity(name = "tb_virtual_classroom")
 public class VirtualClassroom {
 
@@ -40,7 +45,7 @@ public class VirtualClassroom {
     @Column(name = "nome_ambiente", length = 40)
     private String nomeAmbiente;
 
-    // Mapeamento de relação
+    @JsonIgnore
     @ManyToMany(mappedBy = "ambientes")
     private List<Student> alunos;
 
