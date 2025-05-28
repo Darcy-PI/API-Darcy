@@ -18,5 +18,5 @@ public interface ProfessorService {
 
     Professor updateProfessorById(UUID id, Professor professor);
 
-    void deleteProfessor(UUID id);
+    void deleteProfessorById(UUID id);
 }

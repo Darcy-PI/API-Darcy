@@ -43,7 +43,7 @@ public class Professor {
     private String nomeCompleto;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "professorOwner")
+    @OneToMany(mappedBy = "professorDono")
     private List<VirtualClassroom> ambientes;
 
     @JsonProperty("data_criacao")
