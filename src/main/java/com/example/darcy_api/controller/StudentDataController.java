@@ -7,12 +7,15 @@ import lombok.Setter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Getter
 @Setter
-@RestController("/api/v1/class/studentData")
+@RestController
+@RequestMapping("/api/v1/studentData")
 public class StudentDataController {
 
     private final StudentDataService studentDataService;
@@ -22,20 +25,56 @@ public class StudentDataController {
     }
 
     @GetMapping
-    public ResponseEntity<List<StudentData>> findAllStudentData(){
-        List<StudentData> studentDataList = studentDataService.getAllStudents();
-        return ResponseEntity.ok(studentDataList);
+    public ResponseEntity<Map<String, Object>> getAllStudentData(){
+        List<StudentData> studentDataList = studentDataService.getAllStudentData();
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", true);
+        response.put("data", studentDataList);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{virtualClassroomId}")
+    public ResponseEntity<Map<String, Object>> getAllStudentDataByVirtualClassroomId(@PathVariable UUID virtualClassroomId){
+        List<StudentData> studentDataList = studentDataService.getAllStudentDataByVirtualClassroomId(virtualClassroomId);
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", true);
+        response.put("data", studentDataList);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{studentId}")
+    public ResponseEntity<Map<String, Object>> getAllStudentDataByStudentId(@PathVariable UUID studentId){
+        StudentData studentData = studentDataService.getStudentDataByStudentId(studentId);
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", true);
+        response.put("data", studentData);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping
-    public ResponseEntity<StudentData> createStudentData(@RequestBody StudentData studentData){
+    public ResponseEntity<Map<String, Object>> createStudentData(@RequestBody StudentData studentData){
         StudentData studentDataCreated = studentDataService.createStudentData(studentData);
-        return ResponseEntity.ok(studentDataCreated);
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", true);
+        response.put("data", studentDataCreated);
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/{studentId}")
+    public ResponseEntity<Map<String, Object>> updateStudentData(@PathVariable UUID studentId, @RequestBody StudentData studentData){
+        StudentData updateStudentData = studentDataService.updateStudentDataByStudentId(studentId, studentData);
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", true);
+        response.put("data", updateStudentData);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{studentId}")
-    public ResponseEntity<String> deleteStudentDataByStudentId(@PathVariable UUID studentId){
+    public ResponseEntity<Map<String, Object>> deleteStudentDataByStudentId(@PathVariable UUID studentId){
         studentDataService.deleteStudentDataByStudentId(studentId);
-        return ResponseEntity.ok("Deleted studentData successfully");
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", true);
+        response.put("message", "StudentData deletado com sucesso.");
+        return ResponseEntity.ok(response);
     }
 }

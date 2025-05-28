@@ -30,3 +30,4 @@ server:
 logging:
   level:
     org.hibernate: DEBUG
+    org.springframework.security: DEBUG
