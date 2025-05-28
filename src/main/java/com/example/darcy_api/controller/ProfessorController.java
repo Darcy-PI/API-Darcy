@@ -80,7 +80,7 @@ public class ProfessorController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Object>> deleteProfessor(@PathVariable UUID id) {
-        professorService.deleteProfessor(id);
+        professorService.deleteProfessorById(id);
         Map<String, Object> response = new HashMap<>();
         response.put("success", true);
         response.put("message", "Professor deletado com sucesso.");
