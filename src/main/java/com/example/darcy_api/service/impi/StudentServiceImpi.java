@@ -1,35 +1,54 @@
-package com.example.darcy_api.service;
+package com.example.darcy_api.service.impi;
 
+import com.example.darcy_api.model.VirtualClassroom;
+import com.example.darcy_api.service.StudentService;
 import org.springframework.stereotype.Service;
 import com.example.darcy_api.repository.StudentRepository;
 import com.example.darcy_api.model.Student;
+
+import java.util.List;
 import java.util.UUID;
 
 @Service
-public class AlunoService {
-    private final StudentRepository alunoRepository;
-    public AlunoService(StudentRepository alunoRepository) {
-        this.alunoRepository = alunoRepository;
+public class StudentServiceImpi implements StudentService {
+
+    private final StudentRepository studentRepository;
+
+    public StudentServiceImpi(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
     }
 
-
-    public Student getAlunoById(UUID id) {
-        return alunoRepository.findById(id).orElse(null);
+    @Override
+    public List<Student> getAllStudents(){
+        return studentRepository.findAll();
     }
 
-    public Student createAluno(Student aluno) {
-        return alunoRepository.save(aluno);
+    @Override
+    public List<VirtualClassroom> getAllStudentVirtualClassroomsByStudentId(UUID id){
+        return null;
     }
 
-    public Student updateAluno(UUID id, Student newAluno) {
-        Student existingAluno = alunoRepository.findById(id).orElse(null);
+    @Override
+    public Student getStudentById(UUID id) {
+        return studentRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Student createStudent(Student aluno) {
+        return studentRepository.save(aluno);
+    }
+
+    @Override
+    public Student updateStudentById(UUID id, Student newAluno) {
+        Student existingAluno = studentRepository.findById(id).orElse(null);
         if (existingAluno != null) {
-            return alunoRepository.save(existingAluno);
+            return studentRepository.save(existingAluno);
         }
         return null;
     }
 
-    public void deleteAluno(UUID id) {
-        alunoRepository.deleteById(id);
+    @Override
+    public void deleteStudentById(UUID id) {
+        studentRepository.deleteById(id);
     }
 }
