@@ -3,7 +3,10 @@ package com.example.darcy_api.model;
 import com.example.darcy_api.enums.NecessidadeReforco;
 import com.example.darcy_api.enums.TopicoDificuldade;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -39,9 +42,13 @@ public class StudentData {
 
     @NotNull
     @Column(name = "grau_compreenssao")
+    @Min(value = 1, message = "O grau de compreensão deve ser no mínimo 1")
+    @Max(value = 5, message = "O grau de compreensão geral deve ser no máximo 5")
     private int grauCompreensao;
 
     @NotNull
+    @Min(value = 1, message = "O grau de satisfação geral deve ser no mínimo 1")
+    @Max(value = 5, message = "O grau de satisfação geral deve ser no máximo 5")
     @Column(name = "grau_interesse")
     private int grauInteresse;
 
@@ -50,14 +57,20 @@ public class StudentData {
     private TopicoDificuldade topicoDificuldade;
 
     @NotNull
+    @Min(value = 1, message = "O grau de autoconfiança deve ser no mínimo 1")
+    @Max(value = 5, message = "O grau de autoconfiança deve ser no máximo 5")
     @Column(name = "grau_autoconfianca")
     private int grauAutoconfianca;
 
     @NotNull
+    @Min(value = 1, message = "O grau de estado emocional deve ser no mínimo 1")
+    @Max(value = 5, message = "O grau de estado emocional deve ser no máximo 5")
     @Column(name = "estado_emocional")
     private int estadoEmocional;
 
     @NotNull
+    @Min(value = 1, message = "O grau de satisfação geral deve ser no mínimo 1")
+    @Max(value = 5, message = "O grau de satisfação geral deve ser no máximo 5")
     @Column(name = "satisfacao_geral")
     private int satisfacaoGeral;
 
@@ -66,6 +79,8 @@ public class StudentData {
     private NecessidadeReforco necessidadeReforco;
 
     @NotNull
+    @Min(value = 0, message = "O tempo dedicado de estudo deve ser no mínimo 0")
+    @Max(value = 12, message = "O tempo dedicado de estudo deve ser no máximo 12")
     @Column(name = "tempo_dedicado_estudo")
     private BigInteger tempoDedicadoEstudo;
 
