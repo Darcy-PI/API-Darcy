@@ -7,9 +7,9 @@ import java.util.UUID;
 
 public interface StudentDataService {
 
-    List<StudentData> getAllStudentDatas();
+    List<StudentData> getAllStudentData();
 
-    List<StudentData> getStudentDataByVirtualClassroomId(UUID virtualClassroomId);
+    List<StudentData> getAllStudentDataByVirtualClassroomId(UUID virtualClassroomId);
 
     StudentData getStudentDataByStudentId(UUID studentId);
 
