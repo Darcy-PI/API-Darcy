@@ -1,5 +1,6 @@
 package com.example.darcy_api.service;
 
+import com.example.darcy_api.dto.ProfessorUpdateDTO;
 import com.example.darcy_api.model.Professor;
 import com.example.darcy_api.model.VirtualClassroom;
 
@@ -12,11 +13,13 @@ public interface ProfessorService {
 
     List<VirtualClassroom> getAllProfessorVirtualClassroomsById(UUID id);
 
+    Professor addVirtualClassroomToProfessor(UUID id, UUID virtualClassroomId);
+
     Professor getProfessorById(UUID id);
 
     Professor createProfessor(Professor professor);
 
-    Professor updateProfessorById(UUID id, Professor professor);
+    Professor updateProfessorById(UUID id, ProfessorUpdateDTO professorUpdateDTO);
 
     void deleteProfessorById(UUID id);
 }

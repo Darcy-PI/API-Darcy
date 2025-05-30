@@ -1,5 +1,6 @@
 package com.example.darcy_api.service.impi;
 
+import com.example.darcy_api.dto.ProfessorUpdateDTO;
 import com.example.darcy_api.model.Professor;
 import com.example.darcy_api.model.VirtualClassroom;
 import com.example.darcy_api.repository.ProfessorRepository;
@@ -46,12 +47,27 @@ public class ProfessorServiceImpi implements ProfessorService {
     }
 
     @Override
-    public Professor updateProfessorById(UUID id, Professor updatedProfessor) {
-        professorRepository
-                .findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Professor com o id informado não encontrado ou inexistente."));
-        updatedProfessor.setId(id);
-        return professorRepository.save(updatedProfessor);
+    public Professor addVirtualClassroomToProfessor(UUID id, UUID virtualClassroomId){
+        Professor professor = getProfessorById(id);
+        VirtualClassroom ambiente = virtualClassroomRepository
+            .findById(virtualClassroomId)
+            .orElseThrow(() -> new EntityNotFoundException("Ambiete com o id não encontrado ou inexistente."));
+        professor.getAmbientes().add(ambiente);
+        return professorRepository.save(professor);
+    }
+
+    @Override
+    public Professor updateProfessorById(UUID id, ProfessorUpdateDTO professorUpdateDTO) {
+        Professor professor = getProfessorById(id);
+
+        professor.setUsuario(
+            professorUpdateDTO.getUsuario() != null ? professorUpdateDTO.getUsuario() : professor.getUsuario());
+        professor.setSenha(
+            professorUpdateDTO.getSenha() != null ? professorUpdateDTO.getSenha() : professor.getUsuario());
+        professor.setNomeCompleto(
+            professorUpdateDTO.getNomeCompleto() != null ? professorUpdateDTO.getNomeCompleto() : professor.getNomeCompleto());
+
+        return professorRepository.save(professor);
     }
 
     @Override
