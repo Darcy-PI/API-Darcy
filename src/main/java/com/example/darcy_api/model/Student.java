@@ -7,8 +7,12 @@ import java.util.UUID;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.validation.constraints.NotNull;
 
@@ -19,7 +23,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity (name = "TB_Student")
+@Entity (name = "tb_student")
 public class Student {
 
     @Id
@@ -40,6 +44,7 @@ public class Student {
 
     // Criando tabela intermediária para relação N:N
     @ManyToMany
+    @JsonIgnore
     @JoinTable(
             name = "aluno_ambiente",
             joinColumns = @JoinColumn(name = "id_aluno"),
@@ -47,10 +52,12 @@ public class Student {
     private List<VirtualClassroom> ambientes;
 
     @CreationTimestamp
+    @JsonProperty("data_criacao")
     @Column(name = "data_criacao")
     private Timestamp dataCriacao;
 
     @UpdateTimestamp
+    @JsonProperty("data_ultima_modificacao")
     @Column(name = "data_ultima_modificacao")
-    private Timestamp dataUltimoMapeamento;
+    private Timestamp dataUltimoModificacao;
 }

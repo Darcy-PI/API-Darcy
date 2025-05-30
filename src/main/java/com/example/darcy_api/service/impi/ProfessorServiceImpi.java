@@ -30,7 +30,7 @@ public class ProfessorServiceImpi implements ProfessorService {
 
     @Override
     public List<VirtualClassroom> getAllProfessorVirtualClassroomsById(UUID id){
-        return virtualClassroomRepository.findAllByProfessorOwnerId(id);
+        return virtualClassroomRepository.findAllByProfessorDonoId(id);
     }
 
     @Override
