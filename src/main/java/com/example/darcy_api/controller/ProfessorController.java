@@ -1,6 +1,8 @@
 package com.example.darcy_api.controller;
 
+import com.example.darcy_api.dto.ProfessorUpdateDTO;
 import com.example.darcy_api.model.Professor;
+import com.example.darcy_api.model.Student;
 import com.example.darcy_api.model.VirtualClassroom;
 import com.example.darcy_api.service.ProfessorService;
 
@@ -69,9 +71,19 @@ public class ProfessorController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
+    @PostMapping("/{id}/virtualClassrooms/{virtualClassroomId}")
+    public ResponseEntity<Map<String, Object>> addVirtualClassroomToProfessor(@PathVariable UUID id, @PathVariable UUID virtualClassroomId){
+        Professor updatedVirtualClassroomsProfessor = professorService.addVirtualClassroomToProfessor(id, virtualClassroomId);
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", true);
+        response.put("professorId", updatedVirtualClassroomsProfessor.getId());
+        response.put("virtualClassrooms", updatedVirtualClassroomsProfessor.getAmbientes());
+        return ResponseEntity.ok(response);
+    }
+
     @PutMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> updateProfessor(@PathVariable UUID id , @Valid @RequestBody Professor professor) {
-        Professor updateProfessor = professorService.updateProfessorById(id, professor);
+    public ResponseEntity<Map<String, Object>> updateProfessorById(@PathVariable UUID id , @Valid @RequestBody ProfessorUpdateDTO professorUpdateDTO) {
+        Professor updateProfessor = professorService.updateProfessorById(id, professorUpdateDTO);
         Map<String, Object> response = new HashMap<>();
         response.put("success", true);
         response.put("data", updateProfessor);

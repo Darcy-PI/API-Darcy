@@ -38,7 +38,6 @@ public class Professor {
     private String senha;
 
     @NotNull
-    @JsonProperty("nome_completo")
     @Column(name = "nome_completo", length = 80)
     private String nomeCompleto;
 
