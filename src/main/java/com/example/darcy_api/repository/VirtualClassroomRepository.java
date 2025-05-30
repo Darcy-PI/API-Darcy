@@ -7,5 +7,5 @@ import java.util.List;
 import java.util.UUID;
 
 public interface VirtualClassroomRepository extends JpaRepository<VirtualClassroom, UUID> {
-    List<VirtualClassroom> findAllByProfessorOwnerId(UUID professorId);
+    List<VirtualClassroom> findAllByProfessorDonoId(UUID professorId);
 }

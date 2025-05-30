@@ -3,7 +3,6 @@ package com.example.darcy_api.model;
 import com.example.darcy_api.enums.NecessidadeReforco;
 import com.example.darcy_api.enums.TopicoDificuldade;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

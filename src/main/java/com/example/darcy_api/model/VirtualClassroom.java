@@ -30,10 +30,10 @@ public class VirtualClassroom {
     @NotNull
     @ManyToOne
     @JoinColumn(name = "id_professor")
-    private Professor professorOwner;
+    private Professor professorDono;
 
     @Column(name = "access_key", unique = true, length = 8)
-    private String accessKey;
+    private String chaveAcesso;
 
     @Column(length = 30)
     private String materia;
