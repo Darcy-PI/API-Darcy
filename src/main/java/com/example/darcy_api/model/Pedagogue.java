@@ -11,6 +11,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -51,4 +53,8 @@ public class Pedagogue {
     @Column
     @UpdateTimestamp
     private Timestamp dataUltimaModificacao;
+
+    @OneToOne
+    @JoinColumn(name = "id_escola")
+    private School escola;
 }

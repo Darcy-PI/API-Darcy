@@ -13,8 +13,6 @@ import com.example.darcy_api.model.Pedagogue;
 import com.example.darcy_api.service.PedagogueService;
 
 import jakarta.validation.Valid;
-import lombok.Getter;
-import lombok.Setter;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,8 +23,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
    
-@Getter
-@Setter
 @RestController
 @RequestMapping("/api/v1/pedagogue")
 public class PedagogueController {
