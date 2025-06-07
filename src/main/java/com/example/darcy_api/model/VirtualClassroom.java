@@ -32,13 +32,14 @@ public class VirtualClassroom {
     @JoinColumn(name = "id_professor")
     private Professor professorDono;
 
+    @NotNull
     @Column(name = "access_key", unique = true, length = 8)
     private String chaveAcesso;
 
     @Column(length = 30)
     private String materia;
 
-    @Column(length = 2)
+    @Column(length = 3)
     private String serie;
 
     @NotNull
@@ -46,14 +47,14 @@ public class VirtualClassroom {
     private String nomeAmbiente;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "ambientes")
-    private List<Student> alunos;
+    @ManyToMany(mappedBy = "ambientes", fetch = FetchType.EAGER)
+    private List<Student> estudantes;
 
     @CreationTimestamp
     @Column(name = "data_criacao")
     private Timestamp dataCriacao;
 
     @UpdateTimestamp
-    @Column(name = "data_modificacao")
-    private Timestamp dataModificacao;
+    @Column(name = "data_ultima_modificacao")
+    private Timestamp dataUltimaModificacao;
 }

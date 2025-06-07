@@ -1,6 +1,5 @@
 package com.example.darcy_api.service.impi;
 
-import com.example.darcy_api.model.VirtualClassroom;
 import com.example.darcy_api.service.StudentService;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -9,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.darcy_api.repository.StudentRepository;
 import com.example.darcy_api.repository.VirtualClassroomRepository;
-import com.example.darcy_api.dto.StudentUpdateDTO;
+import com.example.darcy_api.dto.update.StudentUpdateDTO;
 import com.example.darcy_api.model.Student;
 
 import java.util.List;
@@ -32,13 +31,6 @@ public class StudentServiceImpi implements StudentService {
     }
 
     @Override
-    public List<VirtualClassroom> getAllStudentVirtualClassroomsByStudentId(UUID id){
-        Student student = getStudentById(id);
-        List<VirtualClassroom> ambientes = student.getAmbientes();
-        return ambientes;
-    }
-
-    @Override
     public Student getStudentById(UUID id) {
         return studentRepository
             .findById(id)
@@ -47,16 +39,6 @@ public class StudentServiceImpi implements StudentService {
 
     @Override
     public Student createStudent(Student student) {
-        return studentRepository.save(student);
-    }
-
-    @Override
-    public Student addVirtualClassroomToStudent(UUID id, UUID virtualClassroomId){
-        Student student = getStudentById(id);
-        VirtualClassroom ambiente = virtualClassroomRepository
-            .findById(virtualClassroomId)
-            .orElseThrow(() -> new EntityNotFoundException("Ambiete com o id não encontrado ou inexistente."));
-        student.getAmbientes().add(ambiente);
         return studentRepository.save(student);
     }
 

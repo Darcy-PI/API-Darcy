@@ -1,6 +1,6 @@
 package com.example.darcy_api.service.impi;
 
-import com.example.darcy_api.dto.ProfessorUpdateDTO;
+import com.example.darcy_api.dto.update.ProfessorUpdateDTO;
 import com.example.darcy_api.model.Professor;
 import com.example.darcy_api.model.VirtualClassroom;
 import com.example.darcy_api.repository.ProfessorRepository;
@@ -43,16 +43,6 @@ public class ProfessorServiceImpi implements ProfessorService {
 
     @Override
     public Professor createProfessor(Professor professor) {
-        return professorRepository.save(professor);
-    }
-
-    @Override
-    public Professor addVirtualClassroomToProfessor(UUID id, UUID virtualClassroomId){
-        Professor professor = getProfessorById(id);
-        VirtualClassroom ambiente = virtualClassroomRepository
-            .findById(virtualClassroomId)
-            .orElseThrow(() -> new EntityNotFoundException("Ambiete com o id não encontrado ou inexistente."));
-        professor.getAmbientes().add(ambiente);
         return professorRepository.save(professor);
     }
 
