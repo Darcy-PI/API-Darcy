@@ -35,7 +35,7 @@ public class Student {
     private String usuario;
 
     @NotNull
-    @Column(length = 30)
+    @Column(length = 80)
     private String senha;
 
     @NotNull

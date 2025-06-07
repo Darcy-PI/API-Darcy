@@ -36,7 +36,7 @@ public class Pedagogue {
     private String usuario;
 
     @NotNull
-    @Column(length = 30)
+    @Column(length = 80)
     private String senha;
 
     @NotNull
@@ -54,7 +54,7 @@ public class Pedagogue {
     @UpdateTimestamp
     private Timestamp dataUltimaModificacao;
 
-    @OneToOne
-    @JoinColumn(name = "id_escola")
-    private School escola;
+//    @OneToOne
+//    @JoinColumn(name = "id_escola")
+//    private School escola;
 }

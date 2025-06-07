@@ -3,9 +3,10 @@ package com.example.darcy_api.service.impi;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.darcy_api.dto.PedagogueUpdateDTO;
+import com.example.darcy_api.dto.update.PedagogueUpdateDTO;
 import com.example.darcy_api.model.Pedagogue;
 import com.example.darcy_api.repository.PedagogueRepository;
 import com.example.darcy_api.service.PedagogueService;
@@ -16,12 +17,17 @@ import jakarta.persistence.EntityNotFoundException;
 public class PedagogueServiceImpi implements PedagogueService {
     private final PedagogueRepository pedagogueRepository;
 
-    public PedagogueServiceImpi(PedagogueRepository pedagogueRepository){
+    private final PasswordEncoder passwordEncoder;
+
+    public PedagogueServiceImpi(PedagogueRepository pedagogueRepository, PasswordEncoder passwordEncoder) {
         this.pedagogueRepository = pedagogueRepository;
+
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public Pedagogue createPedagogue(Pedagogue pedagogue){
+        pedagogue.setSenha(passwordEncoder.encode(pedagogue.getSenha()));
         return pedagogueRepository.save(pedagogue);
     }
     
