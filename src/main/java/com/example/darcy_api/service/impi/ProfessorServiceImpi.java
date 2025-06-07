@@ -8,6 +8,7 @@ import com.example.darcy_api.repository.VirtualClassroomRepository;
 import com.example.darcy_api.service.ProfessorService;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,9 +20,13 @@ public class ProfessorServiceImpi implements ProfessorService {
     private final ProfessorRepository professorRepository;
     private final VirtualClassroomRepository virtualClassroomRepository;
 
-    public ProfessorServiceImpi(ProfessorRepository professorRepository, VirtualClassroomRepository virtualClassroomRepository) {
+    private final PasswordEncoder passwordEncoder;
+
+    public ProfessorServiceImpi(ProfessorRepository professorRepository, VirtualClassroomRepository virtualClassroomRepository, PasswordEncoder passwordEncoder) {
         this.professorRepository = professorRepository;
         this.virtualClassroomRepository = virtualClassroomRepository;
+
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -43,6 +48,7 @@ public class ProfessorServiceImpi implements ProfessorService {
 
     @Override
     public Professor createProfessor(Professor professor) {
+        professor.setSenha(passwordEncoder.encode(professor.getSenha()));
         return professorRepository.save(professor);
     }
 

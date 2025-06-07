@@ -8,7 +8,7 @@ import java.util.UUID;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.darcy_api.dto.PedagogueUpdateDTO;
+import com.example.darcy_api.dto.update.PedagogueUpdateDTO;
 import com.example.darcy_api.model.Pedagogue;
 import com.example.darcy_api.service.PedagogueService;
 
