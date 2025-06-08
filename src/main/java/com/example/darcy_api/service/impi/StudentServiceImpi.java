@@ -55,7 +55,8 @@ public class StudentServiceImpi implements StudentService {
         student.setUsuario(
             studentUpdateDTO.getUsuario() != null ? studentUpdateDTO.getUsuario() : student.getUsuario());
         student.setSenha(
-            studentUpdateDTO.getSenha() != null ? studentUpdateDTO.getSenha() : student.getSenha());
+            studentUpdateDTO.getSenha() != null ?
+                    passwordEncoder.encode(studentUpdateDTO.getSenha()) : student.getSenha());
         student.setNomeCompleto(
             studentUpdateDTO.getNomeCompleto() != null ? studentUpdateDTO.getNomeCompleto() : student.getNomeCompleto());
 

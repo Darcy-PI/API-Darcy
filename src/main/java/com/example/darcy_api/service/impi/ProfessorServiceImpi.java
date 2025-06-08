@@ -59,7 +59,8 @@ public class ProfessorServiceImpi implements ProfessorService {
         professor.setUsuario(
             professorUpdateDTO.getUsuario() != null ? professorUpdateDTO.getUsuario() : professor.getUsuario());
         professor.setSenha(
-            professorUpdateDTO.getSenha() != null ? professorUpdateDTO.getSenha() : professor.getUsuario());
+            professorUpdateDTO.getSenha() != null ?
+                    passwordEncoder.encode(professorUpdateDTO.getSenha()) : professor.getUsuario());
         professor.setNomeCompleto(
             professorUpdateDTO.getNomeCompleto() != null ? professorUpdateDTO.getNomeCompleto() : professor.getNomeCompleto());
 
