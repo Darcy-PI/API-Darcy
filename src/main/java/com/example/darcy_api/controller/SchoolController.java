@@ -1,7 +1,9 @@
 package com.example.darcy_api.controller;
 
-import com.example.darcy_api.dto.SchoolUpdateDTO;
+import com.example.darcy_api.dto.request.SchoolRequestDTO;
+import com.example.darcy_api.dto.update.SchoolUpdateDTO;
 import com.example.darcy_api.model.School;
+import com.example.darcy_api.model.Student;
 import com.example.darcy_api.service.SchoolService;
 
 import jakarta.validation.Valid;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/schools")
@@ -36,8 +39,8 @@ public class SchoolController{
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> getStudentById(@PathVariable UUID id){
-        Student school = schoolService.getStudentById(id);
+    public ResponseEntity<Map<String, Object>> getSchoolById(@PathVariable UUID id){
+        School school = schoolService.getSchoolById(id);
         Map<String, Object> response = new HashMap<>();
         response.put("success", true);
         response.put("data", school);
@@ -45,8 +48,8 @@ public class SchoolController{
     }
 
     @PostMapping
-    public ResponseEntity<Map<String, Object>> createSchool(School school){
-        Student savedSchool = schoolService.createSchool(school);
+    public ResponseEntity<Map<String, Object>> createSchool(@RequestBody SchoolRequestDTO schoolRequestDTO){
+        School savedSchool = schoolService.createSchool(schoolRequestDTO);
         Map<String, Object> response = new HashMap<>();
         response.put("success", true);
         response.put("data", savedSchool);
@@ -56,14 +59,14 @@ public class SchoolController{
 
     @PutMapping("/{id}")
     public ResponseEntity<Map<String, Object>> updateSchoolById(@PathVariable UUID id, @Valid @RequestBody SchoolUpdateDTO schoolUpdateDTO){
-        Student updatedSchool = schoolService.updateSchoolById(id, schoolUpdateDTO);
+        School updatedSchool = schoolService.updateSchoolById(id, schoolUpdateDTO);
         Map<String, Object> response = new HashMap<>();
         response.put("success", true);
         response.put("data", updatedSchool);
         return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Object>> deleteSchoolById(@PathVariable UUID id){
         schoolService.deleteSchoolById(id);
         Map<String, Object> response = new HashMap<>();

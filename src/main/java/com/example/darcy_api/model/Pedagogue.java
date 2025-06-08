@@ -54,7 +54,4 @@ public class Pedagogue {
     @UpdateTimestamp
     private Timestamp dataUltimaModificacao;
 
-//    @OneToOne
-//    @JoinColumn(name = "id_escola")
-//    private School escola;
 }
