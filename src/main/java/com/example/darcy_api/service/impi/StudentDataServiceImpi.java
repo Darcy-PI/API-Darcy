@@ -1,7 +1,9 @@
 package com.example.darcy_api.service.impi;
 
 import com.example.darcy_api.dto.request.StudentDataRequestDTO;
+import com.example.darcy_api.dto.response.StudentDataResponseDTO;
 import com.example.darcy_api.dto.update.StudentDataUpdateDTO;
+import com.example.darcy_api.mapper.StudentDataMapper;
 import com.example.darcy_api.model.Student;
 import com.example.darcy_api.model.StudentData;
 import com.example.darcy_api.model.VirtualClassroom;
@@ -23,32 +25,38 @@ public class StudentDataServiceImpi implements StudentDataService {
     private final StudentRepository studentRepository;
     private final VirtualClassroomRepository virtualClassroomRepository;
 
-    public StudentDataServiceImpi(StudentDataRepository studentDataRepository, VirtualClassroomRepository virtualClassroomRepository, StudentRepository studentRepository) {
+    private final StudentDataMapper studentDataMapper;
+
+    public StudentDataServiceImpi(StudentDataRepository studentDataRepository, VirtualClassroomRepository virtualClassroomRepository, StudentRepository studentRepository, StudentDataMapper studentDataMapper) {
         this.studentDataRepository = studentDataRepository;
         this.virtualClassroomRepository = virtualClassroomRepository;
         this.studentRepository = studentRepository;
+
+        this.studentDataMapper = studentDataMapper;
     }
 
     @Override
-    public List<StudentData> getAllStudentData(){
-        return studentDataRepository.findAll();
+    public List<StudentDataResponseDTO> getAllStudentData(){
+        return studentDataMapper.toDTOList(studentDataRepository.findAll());
     }
 
     @Override
-    public List<StudentData> getAllStudentDataByVirtualClassroomId(UUID virtualClassroomId){
+    public List<StudentDataResponseDTO> getAllStudentDataByVirtualClassroomId(UUID virtualClassroomId){
         virtualClassroomRepository
                 .findById(virtualClassroomId)
                 .orElseThrow(() -> new EntityNotFoundException("Nenhum ambiente virtual com esse id encontrado.")
                 );
-        return studentDataRepository.findAllByVirtualClassroomId(virtualClassroomId);
+
+        List<StudentData> studentDataList = studentDataRepository.findAllByVirtualClassroomId(virtualClassroomId);
+        return studentDataMapper.toDTOList(studentDataList);
     }
 
     @Override
-    public StudentData getStudentDataByStudentId(UUID studentId){
+    public StudentDataResponseDTO getStudentDataByStudentId(UUID studentId){
         StudentData studentData = studentDataRepository
                 .findByStudentId(studentId)
                 .orElseThrow(() -> new EntityNotFoundException("Nenhum estudante com respostas registradas com esse id."));
-        return studentData;
+        return studentDataMapper.toDTO(studentData);
     }
 
     @Override
@@ -60,6 +68,8 @@ public class StudentDataServiceImpi implements StudentDataService {
         VirtualClassroom virtualClassroom = virtualClassroomRepository
                 .findById(studentDataRequestDTO.getVirtualClassroomId())
                 .orElseThrow(() -> new EntityNotFoundException("Não existe nenhum ambiente virtual com o id informado."));
+
+        if (!virtualClassroom.getEstudantes().contains(student)) throw new IllegalArgumentException("O estudante fornecido pelo id não pertence ao ambiente virtual indicado.");
 
         StudentData studentData = new StudentData();
         studentData.setStudent(student);
@@ -78,7 +88,9 @@ public class StudentDataServiceImpi implements StudentDataService {
 
     @Override
     public StudentData updateStudentDataByStudentId(UUID studentId, StudentDataUpdateDTO studentDataUpdateDTO){
-        StudentData studentData = getStudentDataByStudentId(studentId);
+        StudentData studentData = studentDataRepository
+                .findByStudentId(studentId)
+                .orElseThrow(() -> new EntityNotFoundException("Nenhum estudante com respostas registradas com esse id."));
 
         studentData.setTopicoDificuldade(
                 studentDataUpdateDTO.getTopicoDificuldade() != null ? studentDataUpdateDTO.getTopicoDificuldade() : studentData.getTopicoDificuldade());
@@ -102,7 +114,9 @@ public class StudentDataServiceImpi implements StudentDataService {
 
     @Override
     public void deleteStudentDataByStudentId(UUID studentId){
-        getStudentDataByStudentId(studentId);
-        studentDataRepository.deleteById(studentId);
+        StudentData studentData = studentDataRepository
+                .findByStudentId(studentId)
+                .orElseThrow(() -> new EntityNotFoundException("Nenhum estudante com respostas registradas com esse id."));
+        studentDataRepository.delete(studentData);
     }
 }

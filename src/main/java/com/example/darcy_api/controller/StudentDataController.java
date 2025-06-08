@@ -1,12 +1,14 @@
 package com.example.darcy_api.controller;
 
 import com.example.darcy_api.dto.request.StudentDataRequestDTO;
+import com.example.darcy_api.dto.response.StudentDataResponseDTO;
 import com.example.darcy_api.dto.update.StudentDataUpdateDTO;
 import com.example.darcy_api.model.StudentData;
 import com.example.darcy_api.service.StudentDataService;
 import jakarta.validation.Valid;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,25 +31,27 @@ public class StudentDataController {
 
     @GetMapping
     public ResponseEntity<Map<String, Object>> getAllStudentData(){
-        List<StudentData> studentDataList = studentDataService.getAllStudentData();
+        List<StudentDataResponseDTO> studentDataList = studentDataService.getAllStudentData();
+        if (studentDataList.isEmpty()) return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+
         Map<String, Object> response = new HashMap<>();
         response.put("success", true);
         response.put("data", studentDataList);
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/{virtualClassroomId}")
+    @GetMapping("/virtualClassroom/{virtualClassroomId}")
     public ResponseEntity<Map<String, Object>> getAllStudentDataByVirtualClassroomId(@PathVariable UUID virtualClassroomId){
-        List<StudentData> studentDataList = studentDataService.getAllStudentDataByVirtualClassroomId(virtualClassroomId);
+        List<StudentDataResponseDTO> studentDataList = studentDataService.getAllStudentDataByVirtualClassroomId(virtualClassroomId);
         Map<String, Object> response = new HashMap<>();
         response.put("success", true);
         response.put("data", studentDataList);
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/{studentId}")
+    @GetMapping("/students/{studentId}")
     public ResponseEntity<Map<String, Object>> getAllStudentDataByStudentId(@PathVariable UUID studentId){
-        StudentData studentData = studentDataService.getStudentDataByStudentId(studentId);
+        StudentDataResponseDTO studentData = studentDataService.getStudentDataByStudentId(studentId);
         Map<String, Object> response = new HashMap<>();
         response.put("success", true);
         response.put("data", studentData);

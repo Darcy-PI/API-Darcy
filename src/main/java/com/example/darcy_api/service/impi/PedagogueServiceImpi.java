@@ -50,7 +50,8 @@ public class PedagogueServiceImpi implements PedagogueService {
         pedagogue.setUsuario(
             pedagogueUpdateDTO.getUsuario() != null ? pedagogueUpdateDTO.getUsuario() : pedagogue.getUsuario());
         pedagogue.setSenha(
-            pedagogueUpdateDTO.getSenha() != null ? pedagogueUpdateDTO.getSenha() : pedagogue.getSenha());
+            pedagogueUpdateDTO.getSenha() != null ?
+                    passwordEncoder.encode(pedagogueUpdateDTO.getSenha()) : pedagogue.getSenha());
         pedagogue.setNomeCompleto(
             pedagogueUpdateDTO.getNomeCompleto() != null ? pedagogueUpdateDTO.getNomeCompleto() : pedagogue.getNomeCompleto());
 
