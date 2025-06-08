@@ -89,8 +89,10 @@ public class VirtualClassroomServiceImpi implements VirtualClassroomService {
 
     @Override
     @Transactional
-    public List<Student> addStudentToVirtualClassroom(UUID id, UUID studentId, String accessKey){
-        VirtualClassroom virtualClassroom = getVirtualClassroomById(id);
+    public List<Student> addStudentToVirtualClassroom(UUID studentId, String accessKey){
+        VirtualClassroom virtualClassroom = virtualClassroomRepository
+                .getByChaveAcesso(accessKey)
+                .orElseThrow(() -> new EntityNotFoundException("Ambiente virtual não encontrado ou inexistente com esse id"));
         Student student = studentRepository.findById(studentId).orElseThrow(() -> new EntityNotFoundException("Nenhum estudante encontrado com esse id"));
 
         if (!accessKey.equals(virtualClassroom.getChaveAcesso()))
@@ -105,14 +107,14 @@ public class VirtualClassroomServiceImpi implements VirtualClassroomService {
         virtualClassroomRepository.save(virtualClassroom);
         studentRepository.save(student);
 
-        return getAllStudentsByVirtualClassroomId(id);
+        return getAllStudentsByVirtualClassroomId(virtualClassroom.getId());
     }
 
     @Override
     @Transactional
     public VirtualClassroom createVirtualClassroom(VirtualClassroomRequestDTO virtualClassroomRequestDTO){
         Professor professor = professorRepository.findById(virtualClassroomRequestDTO
-                .getProfessorId())
+                        .getProfessorId())
                 .orElseThrow(() -> new EntityNotFoundException("Nenhum professor com o id informado encontrado"));
         String accessKey = Accesskey.generateKey(6);
 

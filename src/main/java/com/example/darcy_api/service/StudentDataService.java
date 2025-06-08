@@ -1,5 +1,7 @@
 package com.example.darcy_api.service;
 
+import com.example.darcy_api.dto.request.StudentDataRequestDTO;
+import com.example.darcy_api.dto.update.StudentDataUpdateDTO;
 import com.example.darcy_api.model.StudentData;
 
 import java.util.List;
@@ -13,9 +15,9 @@ public interface StudentDataService {
 
     StudentData getStudentDataByStudentId(UUID studentId);
 
-    StudentData createStudentData(StudentData studentData);
+    StudentData createStudentData(StudentDataRequestDTO studentDataRequestDTO);
 
-    StudentData updateStudentDataByStudentId(UUID studentId, StudentData newStudentData);
+    StudentData updateStudentDataByStudentId(UUID studentId, StudentDataUpdateDTO studentDataUpdateDTO);
 
     void deleteStudentDataByStudentId(UUID studentId);
 }

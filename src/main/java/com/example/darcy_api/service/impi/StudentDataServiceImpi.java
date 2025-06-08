@@ -1,11 +1,16 @@
 package com.example.darcy_api.service.impi;
 
+import com.example.darcy_api.dto.request.StudentDataRequestDTO;
+import com.example.darcy_api.dto.update.StudentDataUpdateDTO;
+import com.example.darcy_api.model.Student;
 import com.example.darcy_api.model.StudentData;
+import com.example.darcy_api.model.VirtualClassroom;
 import com.example.darcy_api.repository.StudentDataRepository;
 import com.example.darcy_api.repository.StudentRepository;
 import com.example.darcy_api.repository.VirtualClassroomRepository;
 import com.example.darcy_api.service.StudentDataService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -47,30 +52,57 @@ public class StudentDataServiceImpi implements StudentDataService {
     }
 
     @Override
-    public StudentData createStudentData(StudentData newStudentData){
-        studentRepository
-                .findById(newStudentData.getStudent().getId())
+    @Transactional
+    public StudentData createStudentData(StudentDataRequestDTO studentDataRequestDTO){
+        Student student = studentRepository
+                .findById(studentDataRequestDTO.getStudentId())
                 .orElseThrow(() -> new EntityNotFoundException("Não existe nenhum estudante com o id informado."));
-        virtualClassroomRepository
-                .findById(newStudentData.getVirtualClassroom().getId())
+        VirtualClassroom virtualClassroom = virtualClassroomRepository
+                .findById(studentDataRequestDTO.getVirtualClassroomId())
                 .orElseThrow(() -> new EntityNotFoundException("Não existe nenhum ambiente virtual com o id informado."));
-        return studentDataRepository.save(newStudentData);
+
+        StudentData studentData = new StudentData();
+        studentData.setStudent(student);
+        studentData.setVirtualClassroom(virtualClassroom);
+        studentData.setEstadoEmocional(studentDataRequestDTO.getEstadoEmocional());
+        studentData.setGrauAutoconfianca(studentDataRequestDTO.getGrauAutoconfianca());
+        studentData.setGrauInteresse(studentDataRequestDTO.getGrauInteresse());
+        studentData.setGrauCompreensao(studentDataRequestDTO.getGrauCompreensao());
+        studentData.setNecessidadeReforco(studentDataRequestDTO.getNecessidadeReforco());
+        studentData.setSatisfacaoGeral(studentDataRequestDTO.getSatisfacaoGeral());
+        studentData.setTopicoDificuldade(studentDataRequestDTO.getTopicoDificuldade());
+        studentData.setTempoDedicadoEstudo(studentDataRequestDTO.getTempoDedicadoEstudo());
+
+        return studentDataRepository.save(studentData);
     }
 
     @Override
-    public StudentData updateStudentDataByStudentId(UUID studentId, StudentData updatedStudentData){
-        studentDataRepository
-                .findByStudentId(studentId)
-                .orElseThrow(() -> new EntityNotFoundException("Nenhum estudante com respostas registradas com esse id."));
-        updatedStudentData.setId(studentId);
-        return studentDataRepository.save(updatedStudentData);
+    public StudentData updateStudentDataByStudentId(UUID studentId, StudentDataUpdateDTO studentDataUpdateDTO){
+        StudentData studentData = getStudentDataByStudentId(studentId);
+
+        studentData.setTopicoDificuldade(
+                studentDataUpdateDTO.getTopicoDificuldade() != null ? studentDataUpdateDTO.getTopicoDificuldade() : studentData.getTopicoDificuldade());
+        studentData.setTempoDedicadoEstudo(
+                studentDataUpdateDTO.getTempoDedicadoEstudo() != null ? studentDataUpdateDTO.getTempoDedicadoEstudo() : studentData.getTempoDedicadoEstudo());
+        studentData.setTempoDedicadoEstudo(
+                studentDataUpdateDTO.getTempoDedicadoEstudo() != null ? studentDataUpdateDTO.getTempoDedicadoEstudo() : null);
+        studentData.setSatisfacaoGeral(
+                studentDataUpdateDTO.getSatisfacaoGeral() != null ? studentDataUpdateDTO.getSatisfacaoGeral() : studentData.getSatisfacaoGeral());
+        studentData.setEstadoEmocional(
+                studentDataUpdateDTO.getEstadoEmocional() != null ? studentDataUpdateDTO.getEstadoEmocional() : studentData.getEstadoEmocional());
+        studentData.setGrauAutoconfianca(
+                studentDataUpdateDTO.getGrauAutoconfianca() != null ? studentDataUpdateDTO.getGrauAutoconfianca() : studentData.getGrauAutoconfianca());
+        studentData.setGrauCompreensao(
+                studentDataUpdateDTO.getGrauCompreensao() != null ? studentDataUpdateDTO.getGrauCompreensao() : studentData.getGrauCompreensao());
+        studentData.setNecessidadeReforco(
+                studentDataUpdateDTO.getNecessidadeReforco() != null ? studentDataUpdateDTO.getNecessidadeReforco() : studentData.getNecessidadeReforco());
+
+        return studentDataRepository.save(studentData);
     }
 
     @Override
     public void deleteStudentDataByStudentId(UUID studentId){
-        StudentData studentData = studentDataRepository
-                .findByStudentId(studentId)
-                .orElseThrow(() -> new EntityNotFoundException("Nenhum estudante com respsotas retgistradas com esse id."));
-        studentDataRepository.delete(studentData);
+        getStudentDataByStudentId(studentId);
+        studentDataRepository.deleteById(studentId);
     }
 }

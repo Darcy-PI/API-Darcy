@@ -88,12 +88,11 @@ public class VirtualClassroomController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/{id}/students/{studentId}")
+    @PostMapping("/students/{studentId}")
     public ResponseEntity<Map<String, Object>> addStudentToVirtualClassroom(
-            @PathVariable UUID id,
             @PathVariable UUID studentId,
             @RequestParam String accessKey){
-        List<Student> students = virtualClassroomService.addStudentToVirtualClassroom(id, studentId, accessKey);
+        List<Student> students = virtualClassroomService.addStudentToVirtualClassroom(studentId, accessKey);
         Map<String, Object> response = new HashMap<>();
         response.put("success",true);
         response.put("data", students);

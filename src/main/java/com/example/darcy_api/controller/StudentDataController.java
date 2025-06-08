@@ -1,7 +1,10 @@
 package com.example.darcy_api.controller;
 
+import com.example.darcy_api.dto.request.StudentDataRequestDTO;
+import com.example.darcy_api.dto.update.StudentDataUpdateDTO;
 import com.example.darcy_api.model.StudentData;
 import com.example.darcy_api.service.StudentDataService;
+import jakarta.validation.Valid;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.ResponseEntity;
@@ -52,8 +55,8 @@ public class StudentDataController {
     }
 
     @PostMapping
-    public ResponseEntity<Map<String, Object>> createStudentData(@RequestBody StudentData studentData){
-        StudentData studentDataCreated = studentDataService.createStudentData(studentData);
+    public ResponseEntity<Map<String, Object>> createStudentData(@Valid @RequestBody StudentDataRequestDTO studentDataRequestDTO){
+        StudentData studentDataCreated = studentDataService.createStudentData(studentDataRequestDTO);
         Map<String, Object> response = new HashMap<>();
         response.put("success", true);
         response.put("data", studentDataCreated);
@@ -61,8 +64,8 @@ public class StudentDataController {
     }
 
     @PutMapping("/{studentId}")
-    public ResponseEntity<Map<String, Object>> updateStudentData(@PathVariable UUID studentId, @RequestBody StudentData studentData){
-        StudentData updateStudentData = studentDataService.updateStudentDataByStudentId(studentId, studentData);
+    public ResponseEntity<Map<String, Object>> updateStudentData(@PathVariable UUID studentId, @RequestBody StudentDataUpdateDTO studentDataUpdateDTO){
+        StudentData updateStudentData = studentDataService.updateStudentDataByStudentId(studentId, studentDataUpdateDTO);
         Map<String, Object> response = new HashMap<>();
         response.put("success", true);
         response.put("data", updateStudentData);

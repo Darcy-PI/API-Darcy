@@ -3,7 +3,6 @@ package com.example.darcy_api.service;
 import com.example.darcy_api.dto.request.VirtualClassroomRequestDTO;
 import com.example.darcy_api.dto.response.VirtualClassroomResponseDTO;
 import com.example.darcy_api.dto.update.VirtualClassroomUpdateDTO;
-import com.example.darcy_api.model.Professor;
 import com.example.darcy_api.model.Student;
 import com.example.darcy_api.model.VirtualClassroom;
 
@@ -22,7 +21,7 @@ public interface VirtualClassroomService {
 
     List<Student> getAllStudentsByVirtualClassroomId(UUID id);
 
-    List<Student> addStudentToVirtualClassroom(UUID id, UUID studentId, String accessKey);
+    List<Student> addStudentToVirtualClassroom(UUID studentId, String accessKey);
 
     void regenerateAccessKeyByVirtualClassroomId(UUID id);
 
