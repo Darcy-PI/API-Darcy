@@ -1,5 +1,6 @@
 package com.example.darcy_api.service;
 
+import com.example.darcy_api.dto.request.StudentRequestDTO;
 import com.example.darcy_api.dto.update.StudentUpdateDTO;
 import com.example.darcy_api.model.Student;
 
@@ -12,7 +13,7 @@ public interface StudentService {
 
     Student getStudentById(UUID id);
 
-    Student createStudent(Student student);
+    Student createStudent(StudentRequestDTO studentRequestDTO);
 
     Student updateStudentById(UUID id, StudentUpdateDTO studentUpdateDTO);
 

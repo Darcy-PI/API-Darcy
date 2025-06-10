@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.example.darcy_api.dto.request.PedagogueRequestDTO;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,12 +35,12 @@ public class PedagogueController {
     }
 
     @PostMapping
-    public ResponseEntity<Map<String, Object>> createPedagogue(@RequestBody Pedagogue pedagogue){
-        Pedagogue newPedagogue = pedagogueService.createPedagogue(pedagogue);
+    public ResponseEntity<Map<String, Object>> createPedagogue(@Valid @RequestBody PedagogueRequestDTO pedagogueRequestDTO){
+        Pedagogue createdPedagogue = pedagogueService.createPedagogue(pedagogueRequestDTO);
 
         Map<String, Object> response = new HashMap<>();
         response.put("success", true);
-        response.put("data", newPedagogue);
+        response.put("data", createdPedagogue);
         return ResponseEntity.status(201).body(response);
     }
 

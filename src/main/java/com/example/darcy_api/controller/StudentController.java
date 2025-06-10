@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.example.darcy_api.dto.request.StudentRequestDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -53,11 +54,11 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity<Map<String, Object>> createStudent(Student aluno){
-        Student savedStudent = studentService.createStudent(aluno);
+    public ResponseEntity<Map<String, Object>> createStudent(@Valid @RequestBody StudentRequestDTO studentRequestDTO){
+        Student createdStudent = studentService.createStudent(studentRequestDTO);
         Map<String, Object> response = new HashMap<>();
         response.put("success", true);
-        response.put("data", savedStudent);
+        response.put("data", createdStudent);
         return ResponseEntity.status(201).body(response);
     }
 

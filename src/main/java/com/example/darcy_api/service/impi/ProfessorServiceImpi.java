@@ -1,5 +1,6 @@
 package com.example.darcy_api.service.impi;
 
+import com.example.darcy_api.dto.request.ProfessorRequestDTO;
 import com.example.darcy_api.dto.update.ProfessorUpdateDTO;
 import com.example.darcy_api.model.Professor;
 import com.example.darcy_api.model.VirtualClassroom;
@@ -47,8 +48,11 @@ public class ProfessorServiceImpi implements ProfessorService {
     }
 
     @Override
-    public Professor createProfessor(Professor professor) {
-        professor.setSenha(passwordEncoder.encode(professor.getSenha()));
+    public Professor createProfessor(ProfessorRequestDTO professorRequestDTO) {
+        Professor professor = new Professor();
+        professor.setUsuario(professorRequestDTO.getUsuario());
+        professor.setNomeCompleto(professorRequestDTO.getNomeCompleto());
+        professor.setSenha(passwordEncoder.encode(professorRequestDTO.getSenha()));
         return professorRepository.save(professor);
     }
 

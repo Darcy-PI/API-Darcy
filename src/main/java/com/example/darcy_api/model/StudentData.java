@@ -35,7 +35,7 @@ public class StudentData {
     @JoinColumn(name = "id_estudante")
     private Student student;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_ambiente_virtual")
     private VirtualClassroom virtualClassroom;
 
