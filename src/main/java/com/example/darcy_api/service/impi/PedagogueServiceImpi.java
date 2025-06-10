@@ -3,6 +3,7 @@ package com.example.darcy_api.service.impi;
 import java.util.List;
 import java.util.UUID;
 
+import com.example.darcy_api.dto.request.PedagogueRequestDTO;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +27,12 @@ public class PedagogueServiceImpi implements PedagogueService {
     }
 
     @Override
-    public Pedagogue createPedagogue(Pedagogue pedagogue){
-        pedagogue.setSenha(passwordEncoder.encode(pedagogue.getSenha()));
+    public Pedagogue createPedagogue(PedagogueRequestDTO pedagogueRequestDTO){
+        Pedagogue pedagogue = new Pedagogue();
+        pedagogue.setUsuario(pedagogueRequestDTO.getUsuario());
+        pedagogue.setEmail(pedagogueRequestDTO.getEmail());
+        pedagogue.setNomeCompleto(pedagogueRequestDTO.getNomeCompleto());
+        pedagogue.setSenha(passwordEncoder.encode(pedagogueRequestDTO.getSenha()));
         return pedagogueRepository.save(pedagogue);
     }
     

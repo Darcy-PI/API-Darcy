@@ -69,7 +69,8 @@ public class StudentDataServiceImpi implements StudentDataService {
                 .findById(studentDataRequestDTO.getVirtualClassroomId())
                 .orElseThrow(() -> new EntityNotFoundException("Não existe nenhum ambiente virtual com o id informado."));
 
-        if (!virtualClassroom.getEstudantes().contains(student)) throw new IllegalArgumentException("O estudante fornecido pelo id não pertence ao ambiente virtual indicado.");
+        if (!virtualClassroom.getEstudantes().contains(student))
+            throw new IllegalArgumentException("O estudante fornecido pelo id não pertence ao ambiente virtual indicado.");
 
         StudentData studentData = new StudentData();
         studentData.setStudent(student);

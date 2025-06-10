@@ -1,5 +1,6 @@
 package com.example.darcy_api.controller;
 
+import com.example.darcy_api.dto.request.ProfessorRequestDTO;
 import com.example.darcy_api.dto.update.ProfessorUpdateDTO;
 import com.example.darcy_api.model.Professor;
 import com.example.darcy_api.model.VirtualClassroom;
@@ -62,8 +63,8 @@ public class ProfessorController {
     }
 
     @PostMapping
-    public ResponseEntity<Map<String, Object>> createProfessor(@Valid @RequestBody Professor professor) {
-        Professor createdProfessor = professorService.createProfessor(professor);
+    public ResponseEntity<Map<String, Object>> createProfessor(@Valid @RequestBody ProfessorRequestDTO professorRequestDTO) {
+        Professor createdProfessor = professorService.createProfessor(professorRequestDTO);
         Map<String, Object> response = new HashMap<>();
         response.put("success", true);
         response.put("data", createdProfessor);

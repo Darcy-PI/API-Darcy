@@ -1,5 +1,6 @@
 package com.example.darcy_api.service.impi;
 
+import com.example.darcy_api.dto.request.StudentRequestDTO;
 import com.example.darcy_api.service.StudentService;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -43,8 +44,11 @@ public class StudentServiceImpi implements StudentService {
     }
 
     @Override
-    public Student createStudent(Student student) {
-        student.setSenha(passwordEncoder.encode(student.getSenha()));
+    public Student createStudent(StudentRequestDTO studentRequestDTO) {
+        Student student = new Student();
+        student.setUsuario(studentRequestDTO.getUsuario());
+        student.setNomeCompleto(studentRequestDTO.getNomeCompleto());
+        student.setSenha(passwordEncoder.encode(studentRequestDTO.getSenha()));
         return studentRepository.save(student);
     }
 

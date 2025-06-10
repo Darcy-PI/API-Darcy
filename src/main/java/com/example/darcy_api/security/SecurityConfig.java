@@ -51,7 +51,10 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowCredentials(true);
+
         configuration.addAllowedOrigin("http://localhost:3000");
+        configuration.addAllowedOrigin("https://api-darcy-production.up.railway.app");
+
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
 
