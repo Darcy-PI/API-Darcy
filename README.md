@@ -10,7 +10,7 @@ Aplicação Back-end desenvolvida para as matérias de POO, Programação Front-
 - [4. Documentação](#5--documentação)
 
 ## 1. 🌍 Domínio da aplicação
-A aplicação está centrada em um domínio escolar, com professores e estudantes sendo os atores principais do sistema, com o objetivo gerenciar dados de feedbacks estudantis e pessoais
+A aplicação está centrada em um domínio escolar, com professores e estudantes sendo os atores principais do sistema, com o objetivo gerenciar dados de feedbacks estudantis e de acompanhamento.
 
 ### 1.1 Descrição das entidades
 A seguir, estão as entidades que fazem parte do domínio da aplicação:
@@ -86,7 +86,7 @@ classDiagram
   StudentData "1" --* "1..*" VirtualClassroom
   StudentData --* "1" Student
   Student "1..*" --* "0..*" VirtualClassroom
-  Peddagogue "1" --* "N" School
+  Pedagogue "1" *-- "1" School
 ```
 
 ## 2. ⚙️ Funcionalidades
