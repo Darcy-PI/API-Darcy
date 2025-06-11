@@ -32,7 +32,7 @@ public class AuthServiceImpi implements AuthService {
         if (professor == null || !passwordEncoder.matches(authRequestDTO.getSenha(), professor.getSenha()))
             throw new BadCredentialsException("Usuário ou senha incorretos");
 
-        return new AuthResponseDTO(true, "PROFESSOR", professor.getUsuario());
+        return new AuthResponseDTO(true, professor.getId(), "PROFESSOR", professor.getUsuario());
     }
 
     @Override
@@ -41,6 +41,6 @@ public class AuthServiceImpi implements AuthService {
         if (student == null || !passwordEncoder.matches(authRequestDTO.getSenha(), student.getSenha()))
             throw new BadCredentialsException("Usuário ou senha incorretos");
 
-        return new AuthResponseDTO(true, "STUDENT", student.getUsuario());
+        return new AuthResponseDTO(true, student.getId(), "STUDENT", student.getUsuario());
     }
 }
