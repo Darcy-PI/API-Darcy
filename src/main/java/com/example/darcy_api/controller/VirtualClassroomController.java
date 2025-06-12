@@ -109,7 +109,7 @@ public class VirtualClassroomController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Map<String, Object>> updateVirtualClassroomById(@PathVariable UUID id, VirtualClassroomUpdateDTO virtualClassroomUpdateDTO){
+    public ResponseEntity<Map<String, Object>> updateVirtualClassroomById(@PathVariable UUID id, @RequestBody VirtualClassroomUpdateDTO virtualClassroomUpdateDTO){
         VirtualClassroom updatedVirtualClassroom = virtualClassroomService.updateVirtualClassroomById(id, virtualClassroomUpdateDTO);
         Map<String, Object> response = new HashMap<>();
         response.put("success",true);
