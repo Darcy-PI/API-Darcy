@@ -64,7 +64,7 @@ public class ProfessorServiceImpi implements ProfessorService {
             professorUpdateDTO.getUsuario() != null ? professorUpdateDTO.getUsuario() : professor.getUsuario());
         professor.setSenha(
             professorUpdateDTO.getSenha() != null ?
-                    passwordEncoder.encode(professorUpdateDTO.getSenha()) : professor.getUsuario());
+                    passwordEncoder.encode(professorUpdateDTO.getSenha()) : professor.getSenha());
         professor.setNomeCompleto(
             professorUpdateDTO.getNomeCompleto() != null ? professorUpdateDTO.getNomeCompleto() : professor.getNomeCompleto());
 
@@ -78,5 +78,4 @@ public class ProfessorServiceImpi implements ProfessorService {
                 .orElseThrow(() -> new EntityNotFoundException("Professor com o id informado não encontrado ou inexistente."));
         professorRepository.deleteById(id);
     }
-
 }
