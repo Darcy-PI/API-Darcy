@@ -54,6 +54,7 @@ public class SecurityConfig {
 
         configuration.addAllowedOrigin("http://localhost:3000");
         configuration.addAllowedOrigin("https://api-darcy-production.up.railway.app");
+        configuration.addAllowedOrigin("https://darcywebsite.vercel.app/");
 
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
